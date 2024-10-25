@@ -1,0 +1,16 @@
+{
+  "name": "quantum-demo",
+  "version": "1.0.0",
+  "description": "Contains demos for different proving schemes supported by Quantum.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "quantum-sdk": "^2.0.1",
+    "yargs": "^17.7.2"
+  }
+}
