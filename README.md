@@ -8,3 +8,4 @@ Contains demos for different proving schemes supported by Quantum.
 ### Generate circuit data
 - `go run circuits/gnark_groth16/circuit.go` (gnark_groth16)
 - circuits/snarkjs_groth16/circuit.circom (snarkjs_groth16)
+- `RISC0_DEV_MODE=0 cargo run --package risc0 --bin risc0` (risc0)

@@ -1,0 +1,6 @@
+{
+  "rust-analyzer.linkedProjects": [
+    // "circuits/risc0/methods/Cargo.toml"
+    "Cargo.toml"
+  ]
+}
