@@ -6,9 +6,10 @@ import (
 
 	"github.com/consensys/gnark-crypto/ecc"
 	"github.com/consensys/gnark-crypto/ecc/bn254/fr"
-	"github.com/consensys/gnark/backend/groth16"
+	"github.com/consensys/gnark/backend/plonk"
 	"github.com/consensys/gnark/frontend"
-	"github.com/consensys/gnark/frontend/cs/r1cs"
+	"github.com/consensys/gnark/frontend/cs/scs"
+	"github.com/consensys/gnark/test/unsafekzg"
 )
 
 type SimpleCircuit struct {
@@ -23,15 +24,19 @@ func (circuit *SimpleCircuit) Define(api frontend.API) error {
 	return nil
 }
 
-const circuitDataDir = "circuits/gnark_groth16/circuit_data/"
+const circuitDataDir = "circuits/gnark_plonk/circuit_data/"
 
 func main() {
 	var circuit SimpleCircuit
-	ccs, err := frontend.Compile(ecc.BN254.ScalarField(), r1cs.NewBuilder, &circuit)
+	ccs, err := frontend.Compile(ecc.BN254.ScalarField(), scs.NewBuilder, &circuit)
 	if err != nil {
 		panic(err)
 	}
-	pk, vk, err := groth16.Setup(ccs)
+	srs, srsLagrange, err := unsafekzg.NewSRS(ccs)
+	if err != nil {
+		panic(err)
+	}
+	pk, vk, err := plonk.Setup(ccs, srs, srsLagrange)
 	if err != nil {
 		panic(err)
 	}
@@ -44,11 +49,11 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	proof, err := groth16.Prove(ccs, pk, witness)
+	proof, err := plonk.Prove(ccs, pk, witness)
 	if err != nil {
 		panic(err)
 	}
-	groth16.Verify(proof, vk, publicWitness)
+	plonk.Verify(proof, vk, publicWitness)
 
 	// dump vk
 	fileVK, err := os.Create(circuitDataDir + "vKey.bin")

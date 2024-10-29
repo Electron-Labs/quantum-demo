@@ -50,6 +50,12 @@ const main = async () => {
       console.log("commonDataPath", commonDataPath)
       circuitHash = (await quantum.registerPlonky2Circuit(commonDataPath, verifierOnlyDataPath)).circuitHash["hash"];
       proofResponse = (await quantum.submitPlonky2Proof(proofPath, circuitHash));
+    } else if (scheme == "gnark_plonk") {
+      let vKeyPath = `${circuitPath}/vKey.bin`
+      let proofPath = `${circuitPath}/proof.bin`
+      let pisPath = `${circuitPath}/pis.json`
+      circuitHash = (await quantum.registerGnarkPlonkCircuit(vKeyPath)).circuitHash["hash"];
+      proofResponse = (await quantum.submitGnarkPlonkProof(proofPath, pisPath, circuitHash));
     }
   } catch (e) {
     console.log("error:", e)
