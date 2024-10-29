@@ -40,6 +40,13 @@ const main = async () => {
       circuitHash = (await quantum.registerRisc0Circuit(vKeyPath)).circuitHash["hash"];
       console.log("submitting proof...")
       proofResponse = (await quantum.submitRisc0Proof(receiptPath, circuitHash));
+    } else if (scheme == "sp1") {
+      let vKeyPath = `${circuitPath}/v_key.bin`
+      let receiptPath = `${circuitPath}/proof.bin`
+      console.log("registring circuit...")
+      circuitHash = (await quantum.registerSp1Circuit(vKeyPath)).circuitHash["hash"];
+      console.log("submitting proof...")
+      proofResponse = (await quantum.submitSp1Proof(receiptPath, circuitHash));
     }
   } catch (e) {
     console.log("error:", e)
