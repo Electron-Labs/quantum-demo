@@ -36,17 +36,20 @@ const main = async () => {
     } else if (scheme == "risc0") {
       let vKeyPath = `${circuitPath}/method_id.json`
       let receiptPath = `${circuitPath}/receipt.bin`
-      console.log("registring circuit...")
       circuitHash = (await quantum.registerRisc0Circuit(vKeyPath)).circuitHash["hash"];
-      console.log("submitting proof...")
       proofResponse = (await quantum.submitRisc0Proof(receiptPath, circuitHash));
     } else if (scheme == "sp1") {
       let vKeyPath = `${circuitPath}/v_key.bin`
-      let receiptPath = `${circuitPath}/proof.bin`
-      console.log("registring circuit...")
+      let proofPath = `${circuitPath}/proof.bin`
       circuitHash = (await quantum.registerSp1Circuit(vKeyPath)).circuitHash["hash"];
-      console.log("submitting proof...")
-      proofResponse = (await quantum.submitSp1Proof(receiptPath, circuitHash));
+      proofResponse = (await quantum.submitSp1Proof(proofPath, circuitHash));
+    } else if (scheme == "plonky2") {
+      let commonDataPath = `${circuitPath}/common_data.bin`
+      let verifierOnlyDataPath = `${circuitPath}/verifier_only.bin`
+      let proofPath = `${circuitPath}/proof.bin`
+      console.log("commonDataPath", commonDataPath)
+      circuitHash = (await quantum.registerPlonky2Circuit(commonDataPath, verifierOnlyDataPath)).circuitHash["hash"];
+      proofResponse = (await quantum.submitPlonky2Proof(proofPath, circuitHash));
     }
   } catch (e) {
     console.log("error:", e)

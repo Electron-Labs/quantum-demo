@@ -2,7 +2,7 @@
 Contains demos for different proving schemes supported by Quantum.
 
 ### Test Quantum API (Circuit Registration + Proof Submission)
-- schemes = {gnark_groth16, snarkjs_groth16}
+- schemes = {gnark_groth16, snarkjs_groth16, risc0, sp1, plonky2}
 - `node quantum_test.js --scheme gnark_groth16`
 
 ### Generate circuit data
@@ -14,3 +14,4 @@ Contains demos for different proving schemes supported by Quantum.
   - `cargo prove build --output-directory circuits/sp1/elf`
   - `cd ../../../`
   - `cargo run -r --package sp1 --bin sp1`
+  - `cargo run --package plonky2:0.1.0 --bin plonky2` (plonky2)
