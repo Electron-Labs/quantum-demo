@@ -29,7 +29,7 @@ fn main() {
     let data = builder.build::<C>();
 
     let mut pw = PartialWitness::<F>::new();
-    pw.set_target(x, F::from_canonical_u8(3));
+    pw.set_target(x, F::from_canonical_u8(3)).unwrap();
     let proof = data.prove(pw).unwrap();
     assert!(data.verify(proof.clone()).is_ok());
 

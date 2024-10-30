@@ -1,5 +1,5 @@
 use risc0::{DEMO_ELF, DEMO_ID};
-use risc0_zkvm::{default_prover, ExecutorEnv};
+use risc0_zkvm::{default_prover, ExecutorEnv, ProverOpts};
 use std::fs;
 
 pub fn main() {
@@ -10,7 +10,10 @@ pub fn main() {
         .build()
         .unwrap();
     let prover = default_prover();
-    let receipt = prover.prove(env, DEMO_ELF).unwrap().receipt;
+    let receipt = prover
+        .prove_with_opts(env, DEMO_ELF, &ProverOpts::succinct())
+        .unwrap()
+        .receipt;
     receipt.verify(DEMO_ID).expect(
         "Code you have proven should successfully verify; did you specify the correct image ID?",
     );
