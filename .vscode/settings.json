@@ -1,7 +1,0 @@
-{
-  "rust-analyzer.linkedProjects": [
-    // "circuits/risc0/methods/Cargo.toml"
-    // "circuits/sp1/program/Cargo.toml",
-    "Cargo.toml"
-  ]
-}

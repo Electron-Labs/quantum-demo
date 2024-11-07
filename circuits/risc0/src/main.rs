@@ -18,7 +18,7 @@ pub fn main() {
         "Code you have proven should successfully verify; did you specify the correct image ID?",
     );
 
-    let path = "circuits/risc0/circuit_data";
+    let path = "circuit_data";
     fs::create_dir_all(path).unwrap();
 
     // dump ID

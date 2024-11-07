@@ -841,7 +841,7 @@ mod recursion {
 fn main() {
     let app_params = gen_srs(5);
     let recursion_config: AggregationConfigParams = serde_json::from_reader(
-        fs::File::open("circuits/halo2_kzg/src/configs/example_recursion.json").unwrap(),
+        fs::File::open("src/configs/example_recursion.json").unwrap(),
     )
     .unwrap();
     let k = recursion_config.degree;
@@ -882,7 +882,7 @@ fn main() {
     assert_eq!(final_state, Fr::from(2u64).pow([1 << num_round]));
 
     {
-        let dump_path = "circuits/halo2_kzg/circuit_data";
+        let dump_path = "circuit_data";
 
         let dk = (
             recursion_params.get_g()[0],

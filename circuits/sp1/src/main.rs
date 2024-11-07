@@ -29,7 +29,7 @@ fn main() {
     println!("Successfully verified proof!");
 
     // write proof and vk1
-    let path = "circuits/sp1/circuit_data";
+    let path = "circuit_data";
     fs::create_dir_all(path).unwrap();
 
     // dump v_key

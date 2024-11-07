@@ -5,4 +5,4 @@ edition = "2021"
 
 [dependencies]
 plonky2 = { git = "https://github.com/0xPolygonZero/plonky2.git", default-features = false, rev = "2488cdacd49ede15737bc1172546d82e9521b79b"}
-bincode = { workspace = true }
+bincode = "1.3.3"

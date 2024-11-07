@@ -33,7 +33,7 @@ fn main() {
     let proof = data.prove(pw).unwrap();
     assert!(data.verify(proof.clone()).is_ok());
 
-    let path = "circuits/plonky2/circuit_data";
+    let path = "circuit_data";
     fs::create_dir_all(path).unwrap();
 
     // dump common data
