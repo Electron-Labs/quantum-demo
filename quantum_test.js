@@ -56,6 +56,13 @@ const main = async () => {
       let pisPath = `${circuitPath}/pis.json`
       circuitHash = (await quantum.registerGnarkPlonkCircuit(vKeyPath)).circuitHash["hash"];
       proofResponse = (await quantum.submitGnarkPlonkProof(proofPath, pisPath, circuitHash));
+    } else if (scheme == "halo2_kzg") {
+      let sg2Path = `${circuitPath}/sg2.json`
+      let protocolPath = `${circuitPath}/protocol.json`
+      let proofPath = `${circuitPath}/proof.bin`
+      let instancesPath = `${circuitPath}/instances.json`
+      circuitHash = (await quantum.registerHalo2KZGCircuit(sg2Path, protocolPath)).circuitHash["hash"];
+      proofResponse = (await quantum.submitHalo2KZGProof(proofPath, instancesPath, circuitHash));
     }
   } catch (e) {
     console.log("error:", e)
