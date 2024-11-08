@@ -1,0 +1,26 @@
+[package]
+name = "halo2_kzg_evm"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+snark-verifier = { git = "https://github.com/axiom-crypto/snark-verifier.git", tag = "v0.1.7-git", default-features = false, features = [
+  "loader_halo2",
+  "loader_evm"
+] }
+snark-verifier-sdk = { git = "https://github.com/axiom-crypto/snark-verifier.git", tag = "v0.1.7-git", default-features = false, features = [
+  "loader_halo2",
+  "loader_evm"
+]}
+serde_json = "1.0.132"
+serde = "1.0.214"
+halo2-ecc = { git = "https://github.com/axiom-crypto/halo2-lib.git", tag = "v0.4.1-git", default-features = false, optional = true }
+halo2-base = { git = "https://github.com/axiom-crypto/halo2-lib.git", tag = "v0.4.1-git", default-features = false }
+rand = "0.8"
+itertools = "0.11"
+
+[features]
+default = ["loader_halo2", "halo2-axiom", "display"]
+display = ["halo2-base/display", "halo2-ecc?/display"]
+loader_halo2 = ["halo2-ecc"]
+halo2-axiom = ["halo2-base/halo2-axiom", "halo2-ecc?/halo2-axiom"]

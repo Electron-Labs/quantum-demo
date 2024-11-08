@@ -63,6 +63,13 @@ const main = async () => {
       let instancesPath = `${circuitPath}/instances.json`
       circuitHash = (await quantum.registerHalo2KZGCircuit(sg2Path, protocolPath)).circuitHash["hash"];
       proofResponse = (await quantum.submitHalo2KZGProof(proofPath, instancesPath, circuitHash));
+    } else if (scheme == "halo2_kzg_evm") {
+      let sg2Path = `${circuitPath}/sg2.json`
+      let protocolPath = `${circuitPath}/protocol.json`
+      let proofPath = `${circuitPath}/proof.bin`
+      let instancesPath = `${circuitPath}/instances.json`
+      circuitHash = (await quantum.registerHalo2KZGEvmCircuit(sg2Path, protocolPath)).circuitHash["hash"];
+      proofResponse = (await quantum.submitHalo2KZGEvmProof(proofPath, instancesPath, circuitHash));
     }
   } catch (e) {
     console.log("error:", e)
