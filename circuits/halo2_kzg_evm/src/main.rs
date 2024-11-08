@@ -1,38 +1,17 @@
 use halo2_base::halo2_proofs;
 use halo2_proofs::{
     circuit::{Layouter, SimpleFloorPlanner, Value},
-    dev::MockProver,
-    halo2curves::bn256::{Bn256, Fq, Fr, G1Affine},
+    halo2curves::bn256::{Bn256, Fr, G1Affine},
     plonk::{
-        create_proof, keygen_pk, keygen_vk, verify_proof, Advice, Assigned, Circuit, Column,
-        ConstraintSystem, Error, Fixed, Instance, ProvingKey, VerifyingKey,
+        keygen_pk, keygen_vk, Advice, Assigned, Circuit, Column, ConstraintSystem, Error, Fixed,
+        Instance, ProvingKey,
     },
-    poly::{
-        commitment::{Params, ParamsProver},
-        kzg::{
-            commitment::{KZGCommitmentScheme, ParamsKZG},
-            multiopen::{ProverGWC, VerifierGWC},
-            strategy::AccumulatorStrategy,
-        },
-        Rotation, VerificationStrategy,
-    },
-    transcript::{TranscriptReadBuffer, TranscriptWriterBuffer},
+    poly::{kzg::commitment::ParamsKZG, Rotation},
 };
-use itertools::Itertools;
 use rand::{rngs::OsRng, RngCore};
-use snark_verifier::{
-    loader::{
-        evm::{self, EvmLoader},
-        native::NativeLoader,
-    },
-    pcs::kzg::{Gwc19, KzgAs},
-    system::halo2::{compile, transcript::evm::EvmTranscript, Config},
-    verifier::{self, SnarkVerifier},
-};
+use snark_verifier::system::halo2::{compile, Config};
 use snark_verifier_sdk::evm::gen_evm_proof_shplonk;
-use std::{fs::File, io::BufWriter, rc::Rc};
-
-type PlonkVerifier = verifier::plonk::PlonkVerifier<KzgAs<Bn256, Gwc19>>;
+use std::{fs::File, io::BufWriter};
 
 #[derive(Clone, Copy)]
 struct StandardPlonkConfig {
@@ -192,52 +171,6 @@ fn gen_srs(k: u32) -> ParamsKZG<Bn256> {
 fn gen_pk<C: Circuit<Fr>>(params: &ParamsKZG<Bn256>, circuit: &C) -> ProvingKey<G1Affine> {
     let vk = keygen_vk(params, circuit).unwrap();
     keygen_pk(params, vk, circuit).unwrap()
-}
-
-fn gen_proof<C: Circuit<Fr>>(
-    params: &ParamsKZG<Bn256>,
-    pk: &ProvingKey<G1Affine>,
-    circuit: C,
-    instances: Vec<Vec<Fr>>,
-) -> Vec<u8> {
-    MockProver::run(params.k(), &circuit, instances.clone())
-        .unwrap()
-        .assert_satisfied();
-
-    let instances = instances
-        .iter()
-        .map(|instances| instances.as_slice())
-        .collect_vec();
-    let proof = {
-        let mut transcript = TranscriptWriterBuffer::<_, G1Affine, _>::init(Vec::new());
-        create_proof::<KZGCommitmentScheme<Bn256>, ProverGWC<_>, _, _, EvmTranscript<_, _, _, _>, _>(
-            params,
-            pk,
-            &[circuit],
-            &[instances.as_slice()],
-            OsRng,
-            &mut transcript,
-        )
-        .unwrap();
-        transcript.finalize()
-    };
-
-    let accept = {
-        let mut transcript = TranscriptReadBuffer::<_, G1Affine, _>::init(proof.as_slice());
-        VerificationStrategy::<_, VerifierGWC<_>>::finalize(
-            verify_proof::<_, VerifierGWC<_>, _, EvmTranscript<_, _, _, _>, _>(
-                params.verifier_params(),
-                pk.get_vk(),
-                AccumulatorStrategy::new(params.verifier_params()),
-                &[instances.as_slice()],
-                &mut transcript,
-            )
-            .unwrap(),
-        )
-    };
-    assert!(accept);
-
-    proof
 }
 
 fn main() {
