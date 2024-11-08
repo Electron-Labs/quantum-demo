@@ -4,7 +4,7 @@ Contains demos for different proving schemes supported by Quantum.
 
 ### Test Quantum API (Circuit Registration + Proof Submission)
 
-- schemes = {gnark_groth16, snarkjs_groth16, risc0, sp1, plonky2, gnark_plonk}
+- schemes = {gnark_groth16, snarkjs_groth16, risc0, sp1, plonky2, gnark_plonk, halo2_kzg, halo2_kzg_evm}
 - `node quantum_test.js --scheme gnark_groth16`
 
 ### Generate circuit data
