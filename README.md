@@ -29,3 +29,6 @@ Contains demos for different proving schemes supported by Quantum.
 - halo2_kzg
   - `cd circuits/halo2_kzg`
   - `cargo run -r --package halo2_kzg --bin halo2_kzg`
+- halo2_kzg_evm
+  - `cd circuits/halo2_kzg_evm`
+  - `cargo run -r --package halo2_kzg_evm --bin halo2_kzg_evm`
