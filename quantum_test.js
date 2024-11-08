@@ -19,64 +19,64 @@ const main = async () => {
   const scheme = args.scheme
   var circuitPath = `circuits/${scheme}/circuit_data`
 
-  let circuitHash, proofResponse
+  let combinedVKeyHash, proofResponse
   try {
     if (scheme == "gnark_groth16") {
       let vKeyPath = `${circuitPath}/vKey.bin`
       let proofPath = `${circuitPath}/proof.bin`
       let pisPath = `${circuitPath}/pis.json`
-      circuitHash = (await quantum.registerGnarkGroth16Circuit(vKeyPath)).circuitHash["hash"];
-      proofResponse = (await quantum.submitGnarkGroth16Proof(proofPath, pisPath, circuitHash));
+      combinedVKeyHash = (await quantum.registerGnarkGroth16Circuit(vKeyPath)).circuitHash["hash"];
+      proofResponse = (await quantum.submitGnarkGroth16Proof(proofPath, pisPath, combinedVKeyHash));
     } else if (scheme == "snarkjs_groth16") {
       let vKeyPath = `${circuitPath}/verification_key.json`
       let proofPath = `${circuitPath}/proof.json`
       let pisPath = `${circuitPath}/public.json`
-      circuitHash = (await quantum.registerSnarkJSGroth16Circuit(vKeyPath)).circuitHash["hash"];
-      proofResponse = (await quantum.submitSnarkJSGroth16Proof(proofPath, pisPath, circuitHash));
+      combinedVKeyHash = (await quantum.registerSnarkJSGroth16Circuit(vKeyPath)).circuitHash["hash"];
+      proofResponse = (await quantum.submitSnarkJSGroth16Proof(proofPath, pisPath, combinedVKeyHash));
     } else if (scheme == "risc0") {
       let vKeyPath = `${circuitPath}/method_id.json`
       let receiptPath = `${circuitPath}/receipt.bin`
-      circuitHash = (await quantum.registerRisc0Circuit(vKeyPath)).circuitHash["hash"];
-      proofResponse = (await quantum.submitRisc0Proof(receiptPath, circuitHash));
+      combinedVKeyHash = (await quantum.registerRisc0Circuit(vKeyPath)).circuitHash["hash"];
+      proofResponse = (await quantum.submitRisc0Proof(receiptPath, combinedVKeyHash));
     } else if (scheme == "sp1") {
       let vKeyPath = `${circuitPath}/v_key.bin`
       let proofPath = `${circuitPath}/proof.bin`
-      circuitHash = (await quantum.registerSp1Circuit(vKeyPath)).circuitHash["hash"];
-      proofResponse = (await quantum.submitSp1Proof(proofPath, circuitHash));
+      combinedVKeyHash = (await quantum.registerSp1Circuit(vKeyPath)).circuitHash["hash"];
+      proofResponse = (await quantum.submitSp1Proof(proofPath, combinedVKeyHash));
     } else if (scheme == "plonky2") {
       let commonDataPath = `${circuitPath}/common_data.bin`
       let verifierOnlyDataPath = `${circuitPath}/verifier_only.bin`
       let proofPath = `${circuitPath}/proof.bin`
       console.log("commonDataPath", commonDataPath)
-      circuitHash = (await quantum.registerPlonky2Circuit(commonDataPath, verifierOnlyDataPath)).circuitHash["hash"];
-      proofResponse = (await quantum.submitPlonky2Proof(proofPath, circuitHash));
+      combinedVKeyHash = (await quantum.registerPlonky2Circuit(commonDataPath, verifierOnlyDataPath)).circuitHash["hash"];
+      proofResponse = (await quantum.submitPlonky2Proof(proofPath, combinedVKeyHash));
     } else if (scheme == "gnark_plonk") {
       let vKeyPath = `${circuitPath}/vKey.bin`
       let proofPath = `${circuitPath}/proof.bin`
       let pisPath = `${circuitPath}/pis.json`
-      circuitHash = (await quantum.registerGnarkPlonkCircuit(vKeyPath)).circuitHash["hash"];
-      proofResponse = (await quantum.submitGnarkPlonkProof(proofPath, pisPath, circuitHash));
+      combinedVKeyHash = (await quantum.registerGnarkPlonkCircuit(vKeyPath)).circuitHash["hash"];
+      proofResponse = (await quantum.submitGnarkPlonkProof(proofPath, pisPath, combinedVKeyHash));
     } else if (scheme == "halo2_kzg") {
       let sg2Path = `${circuitPath}/sg2.json`
       let protocolPath = `${circuitPath}/protocol.json`
       let proofPath = `${circuitPath}/proof.bin`
       let instancesPath = `${circuitPath}/instances.json`
-      circuitHash = (await quantum.registerHalo2KZGCircuit(sg2Path, protocolPath)).circuitHash["hash"];
-      proofResponse = (await quantum.submitHalo2KZGProof(proofPath, instancesPath, circuitHash));
+      combinedVKeyHash = (await quantum.registerHalo2KZGCircuit(sg2Path, protocolPath)).circuitHash["hash"];
+      proofResponse = (await quantum.submitHalo2KZGProof(proofPath, instancesPath, combinedVKeyHash));
     } else if (scheme == "halo2_kzg_evm") {
       let sg2Path = `${circuitPath}/sg2.json`
       let protocolPath = `${circuitPath}/protocol.json`
       let proofPath = `${circuitPath}/proof.bin`
       let instancesPath = `${circuitPath}/instances.json`
-      circuitHash = (await quantum.registerHalo2KZGEvmCircuit(sg2Path, protocolPath)).circuitHash["hash"];
-      proofResponse = (await quantum.submitHalo2KZGEvmProof(proofPath, instancesPath, circuitHash));
+      combinedVKeyHash = (await quantum.registerHalo2KZGEvmCircuit(sg2Path, protocolPath)).circuitHash["hash"];
+      proofResponse = (await quantum.submitHalo2KZGEvmProof(proofPath, instancesPath, combinedVKeyHash));
     }
   } catch (e) {
     console.log("error:", e)
-    if (circuitHash == undefined) console.log("Circuit Registration failed!")
+    if (combinedVKeyHash == undefined) console.log("Circuit Registration failed!")
     if (proofResponse == undefined) console.log("Proof Submission failed!")
   } finally {
-    console.log("circuitHash", circuitHash)
+    console.log("combinedVKeyHash", combinedVKeyHash)
     console.log("proofResponse", proofResponse)
   }
 }
