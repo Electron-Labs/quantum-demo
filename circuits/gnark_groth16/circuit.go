@@ -23,7 +23,7 @@ func (circuit *SimpleCircuit) Define(api frontend.API) error {
 	return nil
 }
 
-const circuitDataDir = "circuits/gnark_groth16/circuit_data/"
+const circuitDataDir = "circuit_data/"
 
 func main() {
 	var circuit SimpleCircuit
