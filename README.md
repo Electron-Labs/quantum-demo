@@ -10,7 +10,8 @@ Contains demos for different proving schemes supported by Quantum.
 ### Generate circuit data
 
 - gnark_groth16
-  - `go run circuits/gnark_groth16/circuit.go`
+  - `cd circuits/gnark_groth16`
+  - `go run circuit.go`
 - snarkjs_groth16
   - circuits/snarkjs_groth16/circuit.circom
 - risc0
@@ -25,7 +26,8 @@ Contains demos for different proving schemes supported by Quantum.
   - `cd circuits/plonky2`
   - `cargo run -r --package plonky2:0.1.0 --bin plonky2`
 - gnark_plonk plonky2
-  - `go run circuits/gnark_plonk/circuit.go`
+  - cd `circuits/gnark_plonk`
+  - `go run circuit.go`
 - halo2_kzg
   - `cd circuits/halo2_kzg`
   - `cargo run -r --package halo2_kzg --bin halo2_kzg`
