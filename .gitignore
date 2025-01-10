@@ -1,4 +1,55 @@
-node_modules/
-.env
+# Build & binary files
+build/
+dist/
+bin/
 target/
-params/
+*.exe
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+*.elf
+
+# Circuit artifacts
+*.r1cs
+*.sym
+*.wasm
+*.wtns
+*.zkey
+*.ptau
+circuit_js/
+circuit_cpp/
+circuit_data/
+proof.json
+public.json
+verification_key.json
+witness.wtns
+
+# Dependencies
+node_modules/
+package-lock.json
+Cargo.lock
+**/*.rs.bk
+
+# IDE 
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Logs & debug
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+.env.local
+.env.*.local

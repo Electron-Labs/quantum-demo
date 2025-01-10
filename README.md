@@ -1,36 +1,32 @@
 # quantum-demo
 
-Contains demos for different proving schemes supported by Quantum.
+This repo contains demos for different proving schemes supported by Quantum.
 
-### Test Quantum API (Circuit Registration + Proof Submission)
+## Quick Start
+Install dependencies and setup credentials
+```bash 
+make setup
+```
+To clean build artifacts, run:
+```bash
+make clean
+```
 
-- schemes = {gnark_groth16, snarkjs_groth16, risc0, sp1, plonky2, gnark_plonk, halo2_kzg, halo2_kzg_evm}
-- `node quantum_test.js --scheme gnark_groth16`
+## Testing Individual Schemes
 
-### Generate circuit data
+You can build and test individual proving schemes using:
 
-- gnark_groth16
-  - `cd circuits/gnark_groth16`
-  - `go run circuit.go`
-- snarkjs_groth16
-  - circuits/snarkjs_groth16/circuit.circom
-- risc0
-  - `cd circuits/risc0`
-  - `cargo run -r --package risc0 --bin risc0`
-- sp1
-  - `cd circuits/sp1/program`
-  - `cargo prove build --output-directory circuits/sp1/elf`
-  - `cd ..`
-  - `cargo run -r --package sp1 --bin sp1`
-- plonky2
-  - `cd circuits/plonky2`
-  - `cargo run -r --package plonky2:0.1.0 --bin plonky2`
-- gnark_plonk plonky2
-  - cd `circuits/gnark_plonk`
-  - `go run circuit.go`
-- halo2_kzg
-  - `cd circuits/halo2_kzg`
-  - `cargo run -r --package halo2_kzg --bin halo2_kzg`
-- halo2_kzg_evm
-  - `cd circuits/halo2_kzg_evm`
-  - `cargo run -r --package halo2_kzg_evm --bin halo2_kzg_evm`
+```bash
+make <scheme_name>
+```
+
+Available schemes:
+- `gnark_groth16`
+- `snarkjs_groth16`
+- `risc0`
+- `sp1`
+- `plonky2`
+- `gnark_plonk`
+- `halo2_kzg`
+- `halo2_kzg_evm`
+
