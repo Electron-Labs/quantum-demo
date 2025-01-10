@@ -36,7 +36,8 @@ fn main() {
     let v_key_bytes = bincode::serialize(&v_key).unwrap();
     fs::write(format! {"{path}/v_key.bin"}, v_key_bytes).unwrap();
 
-    // dump proof
-    let proof_bytes = bincode::serialize(&proof).unwrap();
-    fs::write(format! {"{path}/proof.bin"}, proof_bytes).unwrap();
+
+    // Save the proof directly using its built-in save method instead 
+    // of manual serialization
+    proof.save(format!("{path}/proof.bin")).expect("saving proof failed");
 }
