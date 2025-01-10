@@ -27,7 +27,7 @@ const main = async () => {
       let pisPath = `${circuitPath}/pis.json`
       combinedVKeyHash = (await quantum.registerGnarkGroth16Circuit(vKeyPath)).circuitHash["hash"];
       proofResponse = (await quantum.submitGnarkGroth16Proof(proofPath, pisPath, combinedVKeyHash));
-    } else if (scheme == "snarkjs_groth16") {
+    } else if (scheme == "snarkjs_groth16" || scheme == "sudoku_groth16") {
       let vKeyPath = `${circuitPath}/verification_key.json`
       let proofPath = `${circuitPath}/proof.json`
       let pisPath = `${circuitPath}/public.json`

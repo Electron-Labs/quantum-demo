@@ -1,9 +1,9 @@
-.PHONY: all clean gnark_groth16 snarkjs_groth16 risc0 sp1 plonky2 gnark_plonk halo2_kzg halo2_kzg_evm setup
+.PHONY: all clean gnark_groth16 snarkjs_groth16 risc0 sp1 plonky2 gnark_plonk halo2_kzg halo2_kzg_evm sudoku_groth16 setup
 
 setup:
 	@bash setup.sh && npm install && node test_credentials.js
 
-all: setup gnark_groth16 snarkjs_groth16 risc0 sp1 plonky2 gnark_plonk halo2_kzg halo2_kzg_evm
+all: setup gnark_groth16 snarkjs_groth16 risc0 sp1 plonky2 gnark_plonk halo2_kzg halo2_kzg_evm sudoku_groth16
 
 gnark_groth16:
 	cd circuits/gnark_groth16 && go run circuit.go
@@ -37,6 +37,10 @@ halo2_kzg:
 halo2_kzg_evm:
 	cd circuits/halo2_kzg_evm && cargo run -r --package halo2_kzg_evm --bin halo2_kzg_evm
 	node quantum_test.js --scheme halo2_kzg_evm
+
+sudoku_groth16:
+	cd circuits/sudoku_groth16 && ./build.sh
+	node quantum_test.js --scheme sudoku_groth16
 
 clean:
 	cd circuits/risc0 && cargo clean
