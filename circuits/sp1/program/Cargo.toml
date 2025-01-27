@@ -4,4 +4,4 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-sp1-zkvm = { git = "https://github.com/succinctlabs/sp1.git", tag = "release/v3.0.0-rc1" }
+sp1-zkvm = { git = "https://github.com/succinctlabs/sp1.git", tag = "v4.0.0" }

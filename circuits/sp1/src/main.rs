@@ -1,7 +1,7 @@
 use sp1_sdk::{ProverClient, SP1Stdin};
 use std::fs;
 
-pub const ELF: &[u8] = include_bytes!("../elf/riscv32im-succinct-zkvm-elf");
+pub const ELF: &[u8] = include_bytes!("../program/circuits/sp1/elf/riscv32im-succinct-zkvm-elf");
 
 fn main() {
     let client = ProverClient::new();
@@ -15,7 +15,7 @@ fn main() {
 
     // Generate the proof
     let proof = client
-        .prove(&pk, stdin)
+        .prove(&pk, &stdin)
         .compressed()
         .run()
         .expect("failed to generate proof");
