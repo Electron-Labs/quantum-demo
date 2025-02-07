@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.4.5",
-    "quantum-sdk": "^2.0.1",
+    "quantum-sdk": "^2.1.0",
     "yargs": "^17.7.2"
   }
 }
