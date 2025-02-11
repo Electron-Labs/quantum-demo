@@ -3,12 +3,12 @@ use std::fs;
 use aws_nitro_enclaves_cose::{crypto::Openssl, CoseSign1};
 use aws_nitro_enclaves_nsm_api::api::AttestationDoc;
 use clap::Parser;
-use nitro_attestation::{get_attestation_doc, ClientArgs};
+use nitro_attestation::{client, ClientArgs};
 
 fn main() {
     let args = ClientArgs::parse();
 
-    let attestation_doc_bytes = get_attestation_doc(args).expect("get_attestation_doc failed");
+    let attestation_doc_bytes = client(args).expect("get_attestation_doc failed");
 
     let path = "circuit_data";
     fs::create_dir_all(path).unwrap();
