@@ -4,7 +4,7 @@ Contains demos for different proving schemes supported by Quantum.
 
 ### Test Quantum API (Circuit Registration + Proof Submission)
 
-- schemes = {gnark_groth16, snarkjs_groth16, risc0, sp1, plonky2, gnark_plonk, halo2_kzg, halo2_kzg_evm}
+- schemes = {gnark_groth16, snarkjs_groth16, risc0, sp1, plonky2, gnark_plonk, halo2_kzg, halo2_kzg_evm, nitro_attestation}
 - `node quantum_test.js --scheme gnark_groth16`
 
 ### Generate circuit data
@@ -34,3 +34,7 @@ Contains demos for different proving schemes supported by Quantum.
 - halo2_kzg_evm
   - `cd circuits/halo2_kzg_evm`
   - `cargo run -r --package halo2_kzg_evm --bin halo2_kzg_evm`
+- nitro_attestation
+  - [run](https://docs.aws.amazon.com/enclaves/latest/user/cmd-nitro-run-enclave.html?utm_source=chatgpt.com#cmd-nitro-run-enclave-syntax "run") your [AWS Nitro enclave](https://docs.aws.amazon.com/enclaves/latest/user/nitro-enclave.html "AWS Nitro enclave") [Note down its CID and PORT]
+  - `cd circuits/nitro_attestation`
+  - `cargo run --package nitro_attestation --bin nitro_attestation -- --cid <cid> --port <port>`

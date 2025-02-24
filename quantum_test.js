@@ -1,6 +1,5 @@
 const { Quantum } = require("quantum-sdk")
-const { ProofType } = require("quantum-sdk/dist/src/enum/proof_type")
-const dotenv = require('dotenv')
+const dotenv = require('dotenv');
 const args = require('yargs').argv;
 
 dotenv.config()
@@ -70,6 +69,11 @@ const main = async () => {
       let instancesPath = `${circuitPath}/instances.json`
       combinedVKeyHash = (await quantum.registerHalo2KZGEvmCircuit(sg2Path, protocolPath)).circuitHash["hash"];
       proofResponse = (await quantum.submitHalo2KZGEvmProof(proofPath, instancesPath, combinedVKeyHash));
+    } else if (scheme == "nitro_attestation") {
+      let pcr0Path = `${circuitPath}/pcr0.bin`
+      let attDocPath = `${circuitPath}/attestation_doc.bin`
+      combinedVKeyHash = (await quantum.registerNitroAttCircuit(pcr0Path)).circuitHash["hash"];
+      proofResponse = (await quantum.submitNitroAttProof(attDocPath, combinedVKeyHash));
     }
   } catch (e) {
     console.log("error:", e)
